@@ -22,6 +22,17 @@ public class SecurityFilter implements Filter {
         System.out.println("start filter");
 
         if (uri.equals(LOGIN_PAGE)) {
+            if (isAuthCompleted(httpRequest)) {
+                Cookie[] cookies = ((HttpServletRequest) request).getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        cookie.setValue(null);
+                        cookie.setMaxAge(0);
+                        ((HttpServletResponse) response).addCookie(cookie);
+                    }
+                }
+                chain.doFilter(request, response);
+            }
             chain.doFilter(request, response);
         } else {
             if (isAuthCompleted(httpRequest)) {
