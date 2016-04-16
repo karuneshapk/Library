@@ -40,8 +40,8 @@
         </table>
         <p></p>
 
-<p><a href="/servlets/addBooks"><img src="image/button1.png"></a></p>
-<p><a href="/servlets/login"><img src="image/button1.png"></a></p>
+<p><a href="/servlets/addBooks"><img src="../../image/buttonAddBook.png"></a></p>
+<p><a href="/servlets/login"><img src="../../image/buttonLogout.png"></a></p>
 
       </p>
     </div>
