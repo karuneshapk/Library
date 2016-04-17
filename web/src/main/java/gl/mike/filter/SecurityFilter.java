@@ -1,6 +1,6 @@
 package gl.mike.filter;
 
-import gl.mike.servlets.LoginAction;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static gl.mike.Constants.AUTH_FLAG;
+import static gl.mike.Constants.URL_LOGIN_PAGE;
+
 public class SecurityFilter implements Filter {
-    private static final String LOGIN_PAGE = "/servlets/login";
+    private static Logger log = Logger.getLogger(SecurityFilter.class);
+
 
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -18,9 +22,9 @@ public class SecurityFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String uri = httpRequest.getRequestURI();
-        System.out.println("start filter");
+        log.trace("Filter start");
 
-        if (uri.equals(LOGIN_PAGE)) {
+        if (uri.equals(URL_LOGIN_PAGE)) {
             if (isAuthCompleted(httpRequest)) {
                 Cookie[] cookies = ((HttpServletRequest) request).getCookies();
                 if (cookies != null) {
@@ -37,7 +41,7 @@ public class SecurityFilter implements Filter {
             if (isAuthCompleted(httpRequest)) {
                 chain.doFilter(request, response);
             } else {
-                ((HttpServletResponse) response).sendRedirect(LOGIN_PAGE);
+                ((HttpServletResponse) response).sendRedirect(URL_LOGIN_PAGE);
             }
         }
     }
@@ -50,7 +54,7 @@ public class SecurityFilter implements Filter {
         Cookie[] cookies = httpRequest.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (LoginAction.AUTH_FLAG.equals(cookie.getName()) && "1234".equals(cookie.getValue())) {
+                if (AUTH_FLAG.equals(cookie.getName()) && "1234".equals(cookie.getValue())) {
                     return true;
                 }
             }

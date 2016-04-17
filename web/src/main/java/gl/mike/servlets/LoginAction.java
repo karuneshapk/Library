@@ -4,6 +4,7 @@ import gl.mike.controller.Action;
 import gl.mike.controller.View;
 import gl.mike.pojos.User;
 import gl.mike.service.UserService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,27 +13,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static gl.mike.Constants.*;
+
 /**
  * Created by Holub on 02.05.2015.
  */
 public class LoginAction implements Action {
-    //private static final Logger LOG = Logger.getLogger(LoginAction.class);
-
-    public static final String AUTH_FLAG = "auth";
-    private static final String DEFAULT_PAGE = "/servlets/showBooks";
+    private static final Logger log = Logger.getLogger(LoginAction.class);
     private UserService userService = new UserService();
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {
         HashMap<String, Object> model = new HashMap<>();
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String login = req.getParameter(KEY_LOGIN);
+        String password = req.getParameter(PASSWORD);
 
         ArrayList<String> errors = new ArrayList<>();
         if (login == null || password == null) {
             errors.add("Please define your username and password.");
-            model.put("errors", errors);
-            return new View("login", model);
+            model.put(KEY_ERRORS, errors);
+            return new View(KEY_LOGIN, model);
         }
 
         User user = userService.getUser(login, password);
@@ -45,16 +45,16 @@ public class LoginAction implements Action {
 
             resp.addCookie(cookie); // add authentication
             try {
-                resp.sendRedirect(DEFAULT_PAGE);
+                resp.sendRedirect(URL_SHOW_BOOKS_PAGE);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("Can't redirect to showBooks.", e);
             }
             return null;
         } else {
             errors.add("Username or password are not correct. Please try again.");
         }
 
-        model.put("errors", errors);
-        return new View("login", model); // todo login with error
+        model.put(KEY_ERRORS, errors);
+        return new View(KEY_LOGIN, model); // todo login with error
     }
 }

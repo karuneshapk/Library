@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
+import static gl.mike.Constants.*;
+
 /**
  * Main controller
  */
 public class FrontController extends HttpServlet {
-    private final static Logger LOGGER = Logger.getLogger(FrontController.class);
+    private final static Logger log = Logger.getLogger(FrontController.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +32,7 @@ public class FrontController extends HttpServlet {
             try {
                 throw new SQLException();
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage(), e);
+                log.error("Action = null.", e);
             }
         }
     }
@@ -38,9 +40,9 @@ public class FrontController extends HttpServlet {
 
     private void dispatchRequestToView(View view, HttpServletRequest request, HttpServletResponse response) {
         try {
-            getServletContext().getRequestDispatcher("/WEB-INF/jsp/" + view.getName() + ".jsp").forward(request, response);
+            getServletContext().getRequestDispatcher(PREF_JSP + view.getName() + JSP).forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            log.error("Servlet Exception.", e);
         }
     }
 
@@ -49,6 +51,7 @@ public class FrontController extends HttpServlet {
         if (model != null) {
             for (Map.Entry<String, Object> data : model.entrySet()) {
                 request.setAttribute(data.getKey(), data.getValue());
+                log.trace("Model prepared.");
             }
         }
     }
