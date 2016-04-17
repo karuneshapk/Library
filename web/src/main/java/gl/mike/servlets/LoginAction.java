@@ -2,7 +2,7 @@ package gl.mike.servlets;
 
 import gl.mike.controller.Action;
 import gl.mike.controller.View;
-import gl.mike.model.User;
+import gl.mike.pojos.User;
 import gl.mike.service.UserService;
 
 import javax.servlet.http.Cookie;
@@ -20,7 +20,7 @@ public class LoginAction implements Action {
 
     public static final String AUTH_FLAG = "auth";
     private static final String DEFAULT_PAGE = "/servlets/showBooks";
-    private UserService userService = UserService.getInstance();
+    private UserService userService = new UserService();
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {

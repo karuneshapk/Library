@@ -2,7 +2,7 @@ package gl.mike.servlets;
 
 import gl.mike.controller.Action;
 import gl.mike.controller.View;
-import gl.mike.model.Book;
+import gl.mike.pojos.Book;
 import gl.mike.service.BookService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddBooksAction implements Action {
-    private BookService bookService = BookService.getInstance();
+    private BookService bookService = new BookService();
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {

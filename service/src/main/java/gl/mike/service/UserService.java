@@ -2,27 +2,31 @@ package gl.mike.service;
 
 
 import gl.mike.dao.UserDao;
-import gl.mike.model.User;
+import gl.mike.general.FactoryDao;
+import gl.mike.pojos.User;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by Holub on 03.05.2015.
  */
 public class UserService {
-    private UserDao userDao = UserDao.getInstance();
-    private static UserService instance;
-
-    private UserService() {
-    }
-
-    public static UserService getInstance() {
-        if (instance == null) {
-            instance = new UserService();
-        }
-        return instance;
-    }
+    private UserDao userDaoImpl = FactoryDao.getInstance().getUserDao();
 
     public User getUser(String login, String password) {
-        return userDao.getUser(login, password);
+        List<User> users = null;
+        try {
+            users = userDaoImpl.getUser(login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (User user: users) {
+            if (login.equals(user.getLogin()) && password.equals(user.getPassword())) {
+                return user;
+            }
+        }
+       return null;
     }
 
 }

@@ -1,6 +1,5 @@
 package gl.mike.filter;
 
-import gl.mike.db.DataBaseConnection;
 import gl.mike.servlets.LoginAction;
 
 import javax.servlet.*;
@@ -44,7 +43,7 @@ public class SecurityFilter implements Filter {
     }
 
     public void destroy() {
-        DataBaseConnection.getInstance().closeAllConnections();
+
     }
 
     private boolean isAuthCompleted(HttpServletRequest httpRequest) {

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 public class ShowBooksAction implements Action {
-    private BookService bookService = BookService.getInstance();
+    private BookService bookService = new BookService();
 
     @Override
     public View execute(HttpServletRequest req, HttpServletResponse resp) {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gl.mike.pojos" auto-import="false" catalog="library">
+    <class name="gl.mike.pojos.Book" table="BOOKS">
+        <id name="id" type="int" column="BOOK_ID">
+            <generator class="increment"/>
+        </id>
+
+        <property name="name"/>
+        <property name="author"/>
+        <property name="description"/>
+    </class>
+</hibernate-mapping>
+
+
