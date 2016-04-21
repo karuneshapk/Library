@@ -26,9 +26,7 @@ public class BookDaoImpl implements BookDao {
         } catch (Exception e) {
             log.error("Can't created session.", e);
         } finally {
-            if(session != null && session.isOpen()) {
-                session.close();
-            }
+            getHibernateUtil().closeSession(session);
         }
     }
 
@@ -43,9 +41,7 @@ public class BookDaoImpl implements BookDao {
         } catch (Exception e) {
             log.error("Can't get books from db.", e);
         } finally {
-            if(session != null && session.isOpen()) {
-                session.close();
-            }
+            getHibernateUtil().closeSession(session);
         }
         return books;
     }

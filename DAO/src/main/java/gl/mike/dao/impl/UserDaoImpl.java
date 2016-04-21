@@ -26,10 +26,8 @@ public class UserDaoImpl implements UserDao {
         } catch (Exception e) {
            log.error("Can't get users from db.", e);
         } finally {
-            if(session != null && session.isOpen()) {
-                session.close();
-            }
-        }
+           getHibernateUtil().closeSession(session);
+           }
         return null;
     }
 }

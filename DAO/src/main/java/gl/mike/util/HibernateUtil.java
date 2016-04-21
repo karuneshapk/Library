@@ -38,13 +38,20 @@ public class HibernateUtil {
      * Create the Session from hibernate.cfg.xml.
      * @return session {@link Session}
      */
-    public Session getSession () {
+    public Session getSession() {
         Session session = (Session) sessions.get();
         if (session == null) {
             session = sessionFactory.openSession();
             sessions.set(session);
         }
         return session;
+    }
+
+    public void closeSession(Session session) {
+        if(session != null && session.isOpen()) {
+            session.close();
+            sessions.remove();
+        }
     }
 
     public static synchronized HibernateUtil getHibernateUtil(){
