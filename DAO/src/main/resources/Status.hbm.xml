@@ -2,14 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="gl.mike.pojos" auto-import="false" catalog="library">
-    <class name="User" table="USERS">
-        <id name="userId" type="int" column="USER_ID">
+    <class name="Status" table="STATUSES">
+        <id name="statusId" type="int" column="STATUS_ID">
             <generator class="increment"/>
         </id>
+        <property name="status"/>
 
-        <many-to-one name="statusName" class="Status" column="STATUS_ID" lazy="false"/>
-        <property name="login"/>
-        <property name="password"/>
+        <set name="userLists" table="USERS">
+            <key column="USER_Id"/>
+            <one-to-many class="User"/>
+        </set>
+
     </class>
 </hibernate-mapping>
 

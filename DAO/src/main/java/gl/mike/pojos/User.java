@@ -8,20 +8,22 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUTD = -979868766565L;
 
-    private Integer id;
+    private Integer userId;
     private String login;
     private String password;
+    private Status statusName;
 
     public User() {
 
     }
 
-    public Integer getId() {
-        return id;
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getLogin() {
@@ -40,24 +42,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (!getId().equals(user.getId())) return false;
-        if (!getLogin().equals(user.getLogin())) return false;
-        return getPassword().equals(user.getPassword());
-
+    public Status getStatusName() {
+        return statusName;
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getLogin().hashCode();
-        result = 31 * result + getPassword().hashCode();
-        return result;
+    public void setStatusName(Status statusName) {
+        this.statusName = statusName;
     }
 }
