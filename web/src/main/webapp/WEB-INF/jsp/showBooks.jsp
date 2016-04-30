@@ -20,6 +20,8 @@
   <%@ include file="../../html/header.html" %>
 
     <div id="main">
+      <h3> WELL COME: ${user}-${status} </h3>
+
       <h1>All books in library:</h1>
       <p>
         <table border="1" style="width: 700px;max-width: 700px;max-height: 800px;overflow: scroll">

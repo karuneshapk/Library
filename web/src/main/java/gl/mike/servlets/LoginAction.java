@@ -44,6 +44,22 @@ public class LoginAction implements Action {
             cookie.setSecure(false);
 
             resp.addCookie(cookie); // add authentication
+
+            Cookie cookieLogin = new Cookie("userName", login);
+            cookieLogin.setMaxAge(Integer.MAX_VALUE);
+            cookieLogin.setVersion(0);
+            cookieLogin.setSecure(false);
+
+            resp.addCookie(cookieLogin);
+
+
+            Cookie cookieStatus = new Cookie("status", user.getStatusName().getStatus());
+            cookieStatus.setMaxAge(Integer.MAX_VALUE);
+            cookieStatus.setVersion(0);
+            cookieStatus.setSecure(false);
+
+            resp.addCookie(cookieStatus);
+
             try {
                 resp.sendRedirect(URL_SHOW_BOOKS_PAGE);
             } catch (IOException e) {
