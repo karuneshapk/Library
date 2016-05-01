@@ -7,6 +7,7 @@ package gl.mike.util;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
@@ -23,7 +24,7 @@ public class HibernateUtil {
 
     private HibernateUtil() {
         try {
-            Configuration configuration = new Configuration().configure();
+            Configuration configuration = new AnnotationConfiguration().configure();
             ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
                     configuration.getProperties()).buildServiceRegistry();
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);

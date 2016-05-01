@@ -1,18 +1,29 @@
 package gl.mike.pojos;
 
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by user on 17.04.2016.
  */
+@Entity
+@Table(name = "BOOKS")
 public class Book implements Serializable {
     private static final long serialVersionUTD = -23242424242L;
 
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BOOK_ID")
     private Integer id;
+
+    @Column
     private String name;
+
+    @Column
     private String author;
+
+    @Column
     private String description;
 
     public Book() {
